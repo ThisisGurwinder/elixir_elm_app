@@ -4,7 +4,7 @@ defmodule Domains.Students.Aggregates.Students do
 
 	alias __MODULE__
 
-	alias Domains.Students.{Students}
+	alias Domains.Students.Aggregates.{Students}
 
 	alias Domains.Students.Commands.{
 		AddStudent
@@ -26,7 +26,7 @@ defmodule Domains.Students.Aggregates.Students do
 
 		%Students{
 			student
-				| name: "added_new_student_name"
+				| students_uuid: "6fa38edb-dcda-4eaf-bdcb-74d229c1692a"
 		}
 	end
 end

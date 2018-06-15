@@ -12,7 +12,7 @@ defmodule Domains.Students.StudentsContext do
 
 	def add_student() do
 		student = %AddStudent{
-			:students_uuid => 1
+			:students_uuid => "6fa38edb-dcda-4eaf-bdcb-74d229c1692a"
 		}
 
 		student
