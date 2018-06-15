@@ -6,6 +6,7 @@ defmodule SampleApp.Mixfile do
       app: :sample_app,
       version: "0.0.1",
       elixir: "~> 1.4",
+      config_path: "./config/config.exs",
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
@@ -65,11 +66,12 @@ defmodule SampleApp.Mixfile do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
+      "event_store.reset": ["event_store.drop", "event_store.create", "event_store.init"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       "test": ["ecto.create --quiet", "ecto.migrate", "test"],
       setup: [
-        "event_store.create",
+        "event_store.reset",
         "ecto.drop",
         "ecto.create",
         "ecto.migrate",
