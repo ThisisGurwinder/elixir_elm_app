@@ -10203,13 +10203,29 @@ var _user$project$Main$update = F2(
 				}
 			case 'ChangeLocation':
 				var _p4 = _p2._0;
-				var _p3 = A2(_elm_lang$core$Debug$log, 'Path', _p4);
+				var updatedCmd = function () {
+					var _p3 = _p4;
+					if (_p3 === '/about') {
+						return _elm_lang$core$Platform_Cmd$none;
+					} else {
+						return _elm_lang$core$Platform_Cmd$none;
+					}
+				}();
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{changes: model.changes + 1}),
-					_1: _elm_lang$navigation$Navigation$newUrl(_p4)
+					_1: _elm_lang$core$Platform_Cmd$batch(
+						{
+							ctor: '::',
+							_0: _elm_lang$navigation$Navigation$newUrl(_p4),
+							_1: {
+								ctor: '::',
+								_0: updatedCmd,
+								_1: {ctor: '[]'}
+							}
+						})
 				};
 			default:
 				var newRoute = _user$project$Main$parseLocation(_p2._0);

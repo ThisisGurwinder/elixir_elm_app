@@ -16,7 +16,12 @@ config :sample_app, SampleAppWeb.Endpoint,
   render_errors: [view: SampleAppWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: SampleApp.PubSub,
            adapter: Phoenix.PubSub.PG2]
+config :commanded_ecto_projections, repo: EIS.Repo
 
+config :commanded, registry: Commanded.Registration.SwarmRegistry
+config :eventstore, registry: :distributed
+
+config :eventstore, registry: :distributed
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

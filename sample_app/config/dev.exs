@@ -56,3 +56,12 @@ config :sample_app, SampleApp.Repo,
   database: "sample_app_dev",
   hostname: "localhost",
   pool_size: 10
+
+
+config :eventstore, EventStore.Storage,
+  serializer: Commanded.Serialization.JsonSerializer,
+  username: "postgres",
+  password: "postgres",
+  database: "sample_app_dev",
+  hostname: "localhost",
+  pool_size: 10

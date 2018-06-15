@@ -33,14 +33,27 @@ defmodule SampleApp.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.3.0"},
+      {:phoenix, "~> 1.3.2"},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
-      {:cowboy, "~> 1.0"}
+      {:cowboy, "~> 1.0"},
+      {:vex, "~> 0.6.0"},
+      {:exconstructor, "~> 1.1"},
+      {:commanded, "~> 0.16"},
+      {:commanded_eventstore_adapter, "~> 0.4.0"},
+      {:commanded_ecto_projections, "~> 0.6.0"},
+      {:commanded_swarm_registry, "~> 0.1"},
+      {:uuid, "~> 1.1"},
+      {:timex, "~> 3.2"},
+      {:comeonin, "~> 4.1"},
+      {:bcrypt_elixir, "~> 1.0"},
+      {:broker, git: "https://gitnyc.taskstream.com/administrator/broker.git"},
+      {:edeliver, "~> 1.5.0"},
+      {:distillery, "~> 1.0.0", warn_missing: false}
     ]
   end
 
