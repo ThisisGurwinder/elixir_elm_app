@@ -30,8 +30,7 @@ defmodule SampleAppWeb.StudentController do
   def update(conn, _params) do
     student = StudentsContext.add_student();
 
-    render_students = Students.list_students()
-    render(conn, "index.json", students: render_students)
+    render(conn, "index.json", students: [student])
   end
 
   # def update(conn, %{"id" => id, "student" => student_params}) do

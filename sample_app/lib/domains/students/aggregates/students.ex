@@ -6,21 +6,25 @@ defmodule Domains.Students.Aggregates.Students do
 
 	alias Domains.Students.{Students}
 
-	alias SampleAppWeb.Students.Commands.{
+	alias Domains.Students.Commands.{
 		AddStudent
 	}
-	alias SampleAppWeb.Students.Events.{
+	alias Domains.Students.Events.{
 		StudentAdded
 	}
 
-	def execute(%Student{}, %AddStudent{} = add) do
+	def execute(%Students{}, %AddStudent{} = add) do
+			IO.inspect "[[[[ EXECUTE =) STUDENT AGGREGATE ]]]]"
+
 			%AddStudent{
 				students_uuid: add.students_uuid
 			}
 	end
 
-	def apply(%Student{} = student, %AddStudent{} = add) do
-		%Student{
+	def apply(%Students{} = student, %AddStudent{} = add) do
+		IO.inspect "[[[[[ APPLY =) STUDENT AGGREGATE ]]]]]"
+
+		%Students{
 			student
 				| name: "added_new_student_name"
 		}

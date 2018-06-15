@@ -11,18 +11,11 @@ defmodule Domains.Students.StudentsContext do
   alias SeedsHelper
 
 	def add_student() do
-		student = %Domains.Students.Students{
-			:age => 19,
-			:classification => "student",
-			:name => "Tom",
-			:subject => "CS"
+		student = %AddStudent{
+			:students_uuid => 1
 		}
-		|> Map.from_struct
 
-		IO.inspect "GOT THE STUDENT MAP"
-		IO.inspect student
-
-		struct(AddStudent, student)
-			|> Router.dispatch()
+		student
+			|> Router.dispatch(include_execution_result: true)
 	end
 end
