@@ -163,7 +163,7 @@ update msg model =
                 updatedCmd =
                     case path of
                         "/about" ->
-                            Http.send StudentData (Http.get "localhost:4000/about" decodeUrl)
+                            Cmd.none
 
                         _ ->
                             Cmd.none

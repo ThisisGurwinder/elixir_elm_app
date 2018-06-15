@@ -11,10 +11,13 @@ defmodule SampleAppWeb.StudentView do
   end
 
   def render("student.json", %{student: student}) do
-    %{id: student.id,
-      name: student.name,
-      age: student.age,
-      subject: student.subject,
-      classification: student.classification}
+    %{
+      
+    }
+    # %{id: "student.id",
+    #   name: student.name,
+    #   age: student.age,
+    #   subject: student.subject,
+    #   classification: student.classification}
   end
 end

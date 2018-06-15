@@ -48,11 +48,31 @@ config :logger, :console, format: "[$level] $message\n"
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
 
+config :commanded, event_store_adapter: Commanded.EventStore.Adapters.EventStore
+
 # Configure your database
 config :sample_app, SampleApp.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
   database: "sample_app_dev",
+  hostname: "localhost",
+  priv: "/priv/repo",
+  pool_size: 10
+
+config :sample_app, Domains.Students.StudentsRepo,
+  adapter: Ecto.Adapters.Postgres,
+  username: "postgres",
+  password: "postgres",
+  database: "sample_app_students_dev",
+  hostname: "localhost",
+  priv: "/priv/repo",
+  pool_size: 10
+
+config :eventstore, EventStore.Storage,
+  serializer: Commanded.Serialization.JsonSerializer,
+  username: "postgres",
+  password: "postgres",
+  database: "sample_app_dev_events",
   hostname: "localhost",
   pool_size: 10

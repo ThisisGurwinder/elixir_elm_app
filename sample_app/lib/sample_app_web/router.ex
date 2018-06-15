@@ -2,11 +2,11 @@ defmodule SampleAppWeb.Router do
   use SampleAppWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_flash
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    # plug :accepts, ["html"]
+    # plug :fetch_session
+    # plug :fetch_flash
+    # plug :protect_from_forgery
+    # plug :put_secure_browser_headers
   end
 
   pipeline :api do
@@ -20,6 +20,7 @@ defmodule SampleAppWeb.Router do
     get "/about", PageController, :about
 
     resources "/students", StudentController, except: [:new, :edit]
+    post "/students/:student_name", StudentController, :update
 
   end
 

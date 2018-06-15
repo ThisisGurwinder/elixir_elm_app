@@ -7,7 +7,18 @@ use Mix.Config
 
 # General application configuration
 config :sample_app,
-  ecto_repos: [SampleApp.Repo]
+  name: SampleApp,
+  ecto_repos: [SampleApp.Repo,
+               Domains.Students.StudentsRepo
+    ]
+
+config :commanded,
+  pubsub: [
+    phoenix_pubsub: [
+      adapter: Phoenix.PubSub.PG2,
+      pool_size: 1
+    ]
+  ]
 
 # Configures the endpoint
 config :sample_app, SampleAppWeb.Endpoint,
@@ -16,6 +27,11 @@ config :sample_app, SampleAppWeb.Endpoint,
   render_errors: [view: SampleAppWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: SampleApp.PubSub,
            adapter: Phoenix.PubSub.PG2]
+
+config :commanded_ecto_projections, repo: EIS.Repo
+
+config :commanded, registry: Commanded.Registration.SwarmRegistry
+config :eventstore, registry: :distributed
 
 # Configures Elixir's Logger
 config :logger, :console,

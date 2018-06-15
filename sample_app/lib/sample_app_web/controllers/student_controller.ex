@@ -1,18 +1,20 @@
 defmodule SampleAppWeb.StudentController do
   use SampleAppWeb, :controller
 
-  alias SampleApp.Students
-  alias SampleApp.Students.Student
+  alias Domains.Students
+  alias Domains.Students.Students
+  alias Domains.Students.StudentsContext
 
   action_fallback SampleAppWeb.FallbackController
 
   def index(conn, _params) do
     students = Students.list_students()
+    IO.inspect students
     render(conn, "index.json", students: students)
   end
 
   def create(conn, %{"student" => student_params}) do
-    with {:ok, %Student{} = student} <- Students.create_student(student_params) do
+    with {:ok, %Students{} = student} <- Students.create_student(student_params) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", student_path(conn, :show, student))
@@ -25,17 +27,21 @@ defmodule SampleAppWeb.StudentController do
     render(conn, "show.json", student: student)
   end
 
-  def update(conn, %{"id" => id, "student" => student_params}) do
-    student = Students.get_student!(id)
+  def update(conn, _params) do
+    student = StudentsContext.add_student();
 
-    with {:ok, %Student{} = student} <- Students.update_student(student, student_params) do
-      render(conn, "show.json", student: student)
-    end
+    render(conn, "index.json", students: [student])
   end
+
+  # def update(conn, %{"id" => id, "student" => student_params}) do
+  #   with {:ok, %Student{} = student} <- Students.update_student(student, student_params) do
+  #     render(conn, "show.json", student: student)
+  #   end
+  # end
 
   def delete(conn, %{"id" => id}) do
     student = Students.get_student!(id)
-    with {:ok, %Student{}} <- Students.delete_student(student) do
+    with {:ok, %Students{}} <- Students.delete_student(student) do
       send_resp(conn, :no_content, "")
     end
   end
