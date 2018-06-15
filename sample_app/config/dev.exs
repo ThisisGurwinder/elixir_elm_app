@@ -57,8 +57,17 @@ config :sample_app, SampleApp.Repo,
   password: "postgres",
   database: "sample_app_dev",
   hostname: "localhost",
+  priv: "/priv/repo",
   pool_size: 10
 
+config :sample_app, Domains.Students.StudentsRepo,
+  adapter: Ecto.Adapters.Postgres,
+  username: "postgres",
+  password: "postgres",
+  database: "sample_app_students_dev",
+  hostname: "localhost",
+  priv: "/priv/repo",
+  pool_size: 10
 
 config :eventstore, EventStore.Storage,
   serializer: Commanded.Serialization.JsonSerializer,

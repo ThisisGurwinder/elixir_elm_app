@@ -1,4 +1,4 @@
-defmdule Domains.Students.StudentsSupervisor do
+defmodule Domains.Students.StudentsSupervisor do
 	use Supervisor
 
 	alias Domains.Students.Projectors.{Students}
