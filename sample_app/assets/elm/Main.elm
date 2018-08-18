@@ -36,7 +36,6 @@ matchers =
 type alias Model =
     { students : List Student
     , route : Route
-    , changes : Int
     }
 
 
@@ -56,7 +55,6 @@ initialModel route =
           }
         ]
     , route = route
-    , changes = 0
     }
 
 
@@ -94,19 +92,9 @@ init location =
     in
     ( initialModel currentRoute, Cmd.none )
 
-
-viewStudent : Student -> Html Msg
-viewStudent student =
-    tr []
-        [ td [] [ text (student.name ++ " (" ++ toString student.age ++ ")") ]
-        , td [] [ text student.subject ]
-        , td [] [ text student.classification ]
-        ]
-
-
 view : Model -> Html Msg
 view model =
-    div [] [ nav model, page model, viewBody model ]
+    div [] [ nav model, page model ]
 
 
 nav : Model -> Html Msg
@@ -115,7 +103,7 @@ nav model =
         [ a [ href homePath, onLinkClick (ChangeLocation homePath) ] [ text "Home" ]
         , text " "
         , a [ href aboutPath, onLinkClick (ChangeLocation aboutPath) ] [ text "About" ]
-        , text (" " ++ toString model.changes)
+        , text (" ")
         ]
 
 
@@ -134,20 +122,7 @@ page model =
 
 viewBody : Model -> Html Msg
 viewBody model =
-    div []
-        [ h1 [] [ text "Enrolled Students" ]
-        , table [ class "table" ]
-            [ thead []
-                [ tr []
-                    [ th [] [ text "Name (Age)" ]
-                    , th [] [ text "Course" ]
-                    , th [] [ text "Type" ]
-                    ]
-                ]
-            , tbody [] (List.map viewStudent model.students)
-            ]
-        ]
-
+    div [] []
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -163,12 +138,12 @@ update msg model =
                 updatedCmd =
                     case path of
                         "/about" ->
-                            Http.send StudentData (Http.get "localhost:4000/about" decodeUrl)
+                            Cmd.none
 
                         _ ->
                             Cmd.none
             in
-            ( { model | changes = model.changes + 1 }, Cmd.batch [ Navigation.newUrl path, updatedCmd ] )
+            ( model, Cmd.batch [ Navigation.newUrl path, updatedCmd ] )
 
         OnLocationChange location ->
             let

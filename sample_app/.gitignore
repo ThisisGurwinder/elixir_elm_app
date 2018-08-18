@@ -4,6 +4,7 @@
 /deps
 /*.ez
 
+/elm-stuff
 # Generated on crash by the VM
 erl_crash.dump
 

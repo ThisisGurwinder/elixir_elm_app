@@ -5759,11 +5759,17 @@ var _elm_lang$core$Platform$Router = {ctor: 'Router'};
 
 var _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode = _elm_lang$core$Json_Decode$succeed;
 var _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$resolve = _elm_lang$core$Json_Decode$andThen(_elm_lang$core$Basics$identity);
-var _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$custom = _elm_lang$core$Json_Decode$map2(
-	F2(
-		function (x, y) {
-			return y(x);
-		}));
+var _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$custom = F2(
+	function (decoder, wrapped) {
+		return A3(
+			_elm_lang$core$Json_Decode$map2,
+			F2(
+				function (x, y) {
+					return x(y);
+				}),
+			wrapped,
+			decoder);
+	});
 var _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$hardcoded = function (_p0) {
 	return _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$custom(
 		_elm_lang$core$Json_Decode$succeed(_p0));
@@ -5795,7 +5801,15 @@ var _NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optionalDecoder = F3(
 					return _elm_lang$core$Json_Decode$fail(_p2._0);
 				}
 			} else {
-				return _elm_lang$core$Json_Decode$succeed(fallback);
+				var _p3 = A2(
+					_elm_lang$core$Json_Decode$decodeValue,
+					_elm_lang$core$Json_Decode$keyValuePairs(_elm_lang$core$Json_Decode$value),
+					input);
+				if (_p3.ctor === 'Ok') {
+					return _elm_lang$core$Json_Decode$succeed(fallback);
+				} else {
+					return _elm_lang$core$Json_Decode$fail(_p3._0);
+				}
 			}
 		};
 		return A2(_elm_lang$core$Json_Decode$andThen, handleResult, _elm_lang$core$Json_Decode$value);
@@ -9966,6 +9980,12 @@ var _user$project$Main$onLinkClick = function (message) {
 };
 var _user$project$Main$aboutPath = '/about';
 var _user$project$Main$homePath = '/';
+var _user$project$Main$viewBody = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{ctor: '[]'});
+};
 var _user$project$Main$page = function (model) {
 	var _p0 = model.route;
 	switch (_p0.ctor) {
@@ -9977,137 +9997,6 @@ var _user$project$Main$page = function (model) {
 			return _elm_lang$html$Html$text('Not Found');
 	}
 };
-var _user$project$Main$viewStudent = function (student) {
-	return A2(
-		_elm_lang$html$Html$tr,
-		{ctor: '[]'},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$td,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text(
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							student.name,
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								' (',
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									_elm_lang$core$Basics$toString(student.age),
-									')')))),
-					_1: {ctor: '[]'}
-				}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$td,
-					{ctor: '[]'},
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text(student.subject),
-						_1: {ctor: '[]'}
-					}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$td,
-						{ctor: '[]'},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text(student.classification),
-							_1: {ctor: '[]'}
-						}),
-					_1: {ctor: '[]'}
-				}
-			}
-		});
-};
-var _user$project$Main$viewBody = function (model) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{ctor: '[]'},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$h1,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text('Enrolled Students'),
-					_1: {ctor: '[]'}
-				}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$table,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class('table'),
-						_1: {ctor: '[]'}
-					},
-					{
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$thead,
-							{ctor: '[]'},
-							{
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$tr,
-									{ctor: '[]'},
-									{
-										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$th,
-											{ctor: '[]'},
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html$text('Name (Age)'),
-												_1: {ctor: '[]'}
-											}),
-										_1: {
-											ctor: '::',
-											_0: A2(
-												_elm_lang$html$Html$th,
-												{ctor: '[]'},
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html$text('Course'),
-													_1: {ctor: '[]'}
-												}),
-											_1: {
-												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$th,
-													{ctor: '[]'},
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html$text('Type'),
-														_1: {ctor: '[]'}
-													}),
-												_1: {ctor: '[]'}
-											}
-										}
-									}),
-								_1: {ctor: '[]'}
-							}),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$tbody,
-								{ctor: '[]'},
-								A2(_elm_lang$core$List$map, _user$project$Main$viewStudent, model.students)),
-							_1: {ctor: '[]'}
-						}
-					}),
-				_1: {ctor: '[]'}
-			}
-		});
-};
 var _user$project$Main$initialModel = function (route) {
 	return {
 		students: {
@@ -10115,8 +10004,7 @@ var _user$project$Main$initialModel = function (route) {
 			_0: {name: '', age: 0, subject: '', classification: ''},
 			_1: {ctor: '[]'}
 		},
-		route: route,
-		changes: 0
+		route: route
 	};
 };
 var _user$project$Main$Student = F4(
@@ -10149,9 +10037,9 @@ var _user$project$Main$decoder = A2(
 		_1: {ctor: '[]'}
 	},
 	_user$project$Main$decodeList);
-var _user$project$Main$Model = F3(
-	function (a, b, c) {
-		return {students: a, route: b, changes: c};
+var _user$project$Main$Model = F2(
+	function (a, b) {
+		return {students: a, route: b};
 	});
 var _user$project$Main$NotFoundRoute = {ctor: 'NotFoundRoute'};
 var _user$project$Main$AboutRoute = {ctor: 'AboutRoute'};
@@ -10203,13 +10091,27 @@ var _user$project$Main$update = F2(
 				}
 			case 'ChangeLocation':
 				var _p4 = _p2._0;
-				var _p3 = A2(_elm_lang$core$Debug$log, 'Path', _p4);
+				var updatedCmd = function () {
+					var _p3 = _p4;
+					if (_p3 === '/about') {
+						return _elm_lang$core$Platform_Cmd$none;
+					} else {
+						return _elm_lang$core$Platform_Cmd$none;
+					}
+				}();
 				return {
 					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{changes: model.changes + 1}),
-					_1: _elm_lang$navigation$Navigation$newUrl(_p4)
+					_0: model,
+					_1: _elm_lang$core$Platform_Cmd$batch(
+						{
+							ctor: '::',
+							_0: _elm_lang$navigation$Navigation$newUrl(_p4),
+							_1: {
+								ctor: '::',
+								_0: updatedCmd,
+								_1: {ctor: '[]'}
+							}
+						})
 				};
 			default:
 				var newRoute = _user$project$Main$parseLocation(_p2._0);
@@ -10275,11 +10177,7 @@ var _user$project$Main$nav = function (model) {
 						}),
 					_1: {
 						ctor: '::',
-						_0: _elm_lang$html$Html$text(
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								' ',
-								_elm_lang$core$Basics$toString(model.changes))),
+						_0: _elm_lang$html$Html$text(' '),
 						_1: {ctor: '[]'}
 					}
 				}
@@ -10296,11 +10194,7 @@ var _user$project$Main$view = function (model) {
 			_1: {
 				ctor: '::',
 				_0: _user$project$Main$page(model),
-				_1: {
-					ctor: '::',
-					_0: _user$project$Main$viewBody(model),
-					_1: {ctor: '[]'}
-				}
+				_1: {ctor: '[]'}
 			}
 		});
 };
